@@ -79,12 +79,12 @@ This script computes both call and put option prices using Monte Carlo simulatio
 - Compared simulation-based and analytical prices to validate the model implementation
 
 Inputs:
-`S0 = 100` → stock price is $100
-`E = 100` → strike price is $100
-`T = 1` → 1 year to expiration
-`rf = 0.05` → risk-free rate 5%
-`sigma = 0.2` → 20% volatility
-`iterations = 100000` → run 100,000 simulations
+- `S0 = 100` → stock price is $100
+- `E = 100` → strike price is $100
+- `T = 1` → 1 year to expiration
+- `rf = 0.05` → risk-free rate 5%
+- `sigma = 0.2` → 20% volatility
+- `iterations = 100000` → run 100,000 simulations
 
 Outputs:
 
