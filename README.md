@@ -2,9 +2,16 @@
 
 A collection of Python projects implementing core topics in quantitative finance, including Monte Carlo Simulation, Black-Scholes option pricing, Capital Asset Pricing Model (CAPM), Markowitz portfolio optimization, Value at Risk, and algorithmic trading backtesting. The scripts use historical data and Python libraries, such as `yfinance`, `numpy`, `pandas`, `matplotlib`, and `scipy`.
 
+## List of Projects
+- [CAPM](#capm) — [`CAPM.py`](./CAPM.py)
+- [Markowitz Portfolio Optimization](#markowitz-portfolio-optimization) — [`Markowitz_Portfolio_Theory.py`](./Markowitz_Portfolio_Theory.py)
+- [Black-Scholes Option Pricing](#black-scholes-option-pricing) — [`monte_carlo_black_scholes_option_pricing.py`](./monte_carlo_black_scholes_option_pricing.py)
+- [Value at Risk](#value-at-risk) — [`Value_at_risk_comparison.py`](./Value_at_risk_comparison.py)
+- [SMA Algorithmic Trading Backtest](#sma-algorithmic-trading-backtest) — [`aapl_algo_backtest.py`](./aapl_algo_backtest.py)
+
 ## Projects Overview
 
-### 1. `CAPM.py`
+### CAPM
 This script implements the Capital Asset Pricing Model (CAPM) using Apple (`AAPL`) as the stock and the S&P 500 index (`^GSPC`) as the market benchmark over the 2020–2025 period. It downloads adjusted close data, computes log returns, estimates beta value in two ways, and plots the regression line for visualization.
 
 **What it does**
@@ -24,12 +31,13 @@ capm = CAPM(['AAPL', '^GSPC'], '2020-01-01', '2025-01-01')
 ```
 
 Outputs:
-<img width="956" height="485" alt="Screenshot 2026-03-25 at 1 54 08 PM" src="https://github.com/user-attachments/assets/44c9368d-c180-4fff-bf43-322416d0e31b" />
+
 <img width="373" height="69" alt="Screenshot 2026-03-25 at 1 54 27 PM" src="https://github.com/user-attachments/assets/e93b9925-aa3a-4284-99b2-a78179a8686d" />
+<img width="956" height="485" alt="Screenshot 2026-03-25 at 1 54 08 PM" src="https://github.com/user-attachments/assets/44c9368d-c180-4fff-bf43-322416d0e31b" />
 
 ---
 
-### 2. `Markowitz_Portfolio_Theory.py`
+### Markowitz Portfolio Optimization
 This script implements a Markowitz portfolio optimization workflow for five stocks: `AAPL`, `AMZN`, `MSFT`, `COST`, and `CTAS`, using historical data from yfinance from 2015 to 2025. It utilizes Monte Carlo portfolio simulation to find the maximum-Sharpe portfolio. 
 
 **What it does**
@@ -54,13 +62,14 @@ end_date = '2025-01-01'
 ```
 
 Outputs:
+
 <img width="174" height="156" alt="Screenshot 2026-03-25 at 1 44 49 PM" src="https://github.com/user-attachments/assets/1308efe4-d3ed-42a1-9998-e3d305f734d0" />
 <img width="321" height="158" alt="Screenshot 2026-03-25 at 1 45 24 PM" src="https://github.com/user-attachments/assets/9de9ed37-8d95-4c79-9755-e52babad8c7a" />
 <img width="396" height="276" alt="Screenshot 2026-03-25 at 1 45 35 PM" src="https://github.com/user-attachments/assets/4fbabb1c-6a5c-4f4b-a61f-d910ead952b0" />
 <img width="764" height="380" alt="Screenshot 2026-03-25 at 1 37 04 PM" src="https://github.com/user-attachments/assets/658b3051-840d-4bc7-95a5-bd04d23d8270" />
 
 ---
-### 3. `monte_carlo_black_scholes_option_pricing.py`
+### Black-Scholes Option Pricing
 This script computes both call and put option prices using Monte Carlo simulation and compares them with the risk-neutral Black-Scholes formula. 
 - Built a Python option pricing model that compares Monte Carlo simulation with the Black-Scholes formula
 - Used `NumPy` and `SciPy` to handle random simulation and normal distribution calculations
@@ -78,18 +87,19 @@ Inputs:
 `iterations = 100000` → run 100,000 simulations
 
 Outputs:
+
 <img width="1058" height="154" alt="Screenshot 2026-03-25 at 2 33 54 PM" src="https://github.com/user-attachments/assets/243ebb13-b33a-4ed4-a23a-d2dd9bd04616" />
 
 ---
-### 4. `Value_at_risk_comparison.py`
+### Value at Risk
 This script compares Value at Risk (VaR) calculated in two ways: Monte Carlo simulation and the lognormal VaR formula. It uses historical Apple prices from 2020 to 2021, estimates log-return parameters, and then computes the portfolio VaR. 
 
 **What it does**
 - Downloads Apple price data from `yfinance`
-- Computes daily log returns from the historical series.
-- Estimates the mean and volatility of log returns.
-- Calculate Monte Carlo VaR using simple normally distributed returns from the lower-tail percentile of simulated portfolio values using `scipy` and `numpy`.
-- Computes a formula-based VaR using the log-return quantile `scipy` and `numpy`.
+- Computes daily log returns from the historical series
+- Estimates the mean and volatility of log returns
+- Calculate Monte Carlo VaR using simple normally distributed returns from the lower-tail percentile of simulated portfolio values using `scipy` and `numpy`
+- Computes a formula-based VaR using the log-return quantile `scipy` and `numpy`
 
 Inputs
 ```
@@ -101,8 +111,30 @@ Inputs
     start = dt.datetime(2020, 1, 1)
     end = dt.datetime(2021, 1, 1)
 ```
-Outputs
+Outputs:
+
 <img width="949" height="88" alt="Screenshot 2026-03-25 at 2 39 00 PM" src="https://github.com/user-attachments/assets/c74e172d-f756-4aa3-b0a8-9e7a404b8428" />
 
-
 ---
+
+### SMA Algorithmic Trading Backtest
+This script backtests a 20-day vs. 50-day simple moving average crossover strategy on `AAPL` over the past year by downloading daily price data with yfinance, creating long-or-cash trading signals, and simulating portfolio performance. It uses `pandas` for time-series handling and moving-average calculations, then compares the strategy’s return to a buy-and-hold value.
+
+**What it does**
+- Pulled `AAPL` historical daily close prices from `yfinance`
+- Generated trading signals based on 20-day short and 50-day long-term moving average crossovers
+- Simulated a portfolio that fully allocates to stock or cash
+- Tracked portfolio positions through time
+- Compared strategy performance against buy-and-hold over the past year
+
+Inputs:
+```
+    ticker: str = 'AAPL'
+    initial_cash: float = 10_000.0
+    short_window: int = 20
+    long_window: int = 50
+    years: int = 1
+```
+Outputs:
+
+<img width="914" height="113" alt="Screenshot 2026-03-25 at 3 09 12 PM" src="https://github.com/user-attachments/assets/1fb30d15-5c98-42b0-b9a0-a4160f7f9b65" />
