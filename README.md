@@ -75,7 +75,7 @@ This script computes both call and put option prices using Monte Carlo simulatio
 - Used `NumPy` and `SciPy` to handle random simulation and normal distribution calculations
 - Simulated future stock prices using geometric Brownian motion
 - Calculated present-day call and put option prices from discounted expected payoffs
-- Implemented Black-Scholes pricing using `d1` and `d2` parameter calculations-
+- Implemented Black-Scholes pricing using `d1` and `d2` parameter calculations
 - Compared simulation-based and analytical prices to validate the model implementation
 
 Inputs:
