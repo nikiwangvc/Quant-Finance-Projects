@@ -7,6 +7,7 @@ A collection of Python projects implementing core topics in quantitative finance
 - [Markowitz Portfolio Optimization](#markowitz-portfolio-optimization) — [`Markowitz_Portfolio_Theory.py`](./Markowitz_Portfolio_Theory.py)
 - [Black-Scholes Option Pricing](#black-scholes-option-pricing) — [`monte_carlo_black_scholes_option_pricing.py`](./monte_carlo_black_scholes_option_pricing.py)
 - [Value at Risk](#value-at-risk) — [`Value_at_risk_comparison.py`](./Value_at_risk_comparison.py)
+- [Momentum_And_Simple_Moving_Average_Trading_Backtest](#momentum-simple-moving-average-trading-backtest) — [`momentum_moving_avg.py`](./momentum_moving_avg.py)
 - [SMA Algorithmic Trading Backtest](#sma-algorithmic-trading-backtest) — [`aapl_algo_backtest.py`](./aapl_algo_backtest.py)
 
 ## Projects Overview
@@ -117,15 +118,53 @@ Outputs:
 
 ---
 
+### Momentum_SMA_Trading_Strategy
+This script backtests a monthly momentum strategy on top-percent S&P 500 stocks and compares it to `SPY` buy-and-hold strategy using total returns, annualized returns, and sharpe ratios. The backtest tests historical data of multiple combinations of 3, 6, and 12 month momentum as well as top 10% and top 20% of ranked stocks from 2022 to 2026. 
+
+**What it does***
+- Pulls the current S&P 500 stock list from Wikipedia
+- Downloads historical adjusted closing prices using `yfinance
+- Updates portfolio monthly
+- Chooses stocks trading above their simple moving average
+- Ranks eligible stocks by momentum scores
+- Buys the top percentage of those stocks equally
+- Holds the portfolio until the next rebalance date
+- Compares this strategy performance to SPY buy and hold strategy
+
+Inputs:
+```
+    stocks = get_sp500_tickers() # current S&P 500 stock list from Wikipedia
+
+    start = dt.datetime(2022, 1, 1) # year 2020 to 2026
+    end = dt.datetime(2026, 1, 1)
+
+tests = [
+        {"name": "Top 20%, 12-month momentum", "momentum_lookback": 252, "top_percent": 0.20},
+        {"name": "Top 10%, 12-month momentum", "momentum_lookback": 252, "top_percent": 0.10},
+        {"name": "Top 20%, 6-month momentum", "momentum_lookback": 126, "top_percent": 0.20},
+        {"name": "Top 10%, 6-month momentum", "momentum_lookback": 126, "top_percent": 0.10},
+        {"name": "Top 20%, 3-month momentum", "momentum_lookback": 63, "top_percent": 0.20},
+        {"name": "Top 10%, 3-month momentum", "momentum_lookback": 63, "top_percent": 0.10},
+    ]
+```
+
+Outputs:
+<img width="419" height="563" alt="Screenshot 2026-04-14 at 5 05 39 PM" src="https://github.com/user-attachments/assets/c7698d22-96f1-432e-bb04-e7c1484946ed" />
+<img width="435" height="591" alt="Screenshot 2026-04-14 at 5 06 12 PM" src="https://github.com/user-attachments/assets/02932703-801a-4aa6-b38d-87075acc9d28" />
+<img width="409" height="571" alt="Screenshot 2026-04-14 at 5 06 41 PM" src="https://github.com/user-attachments/assets/5b1f5349-608f-41a0-86b5-c86db4a6d4b2" />
+
+
+---
+
 ### SMA Algorithmic Trading Backtest
 This script backtests a 20-day vs. 50-day simple moving average crossover strategy on `AAPL` over the past year by downloading daily price data with yfinance, creating long-or-cash trading signals, and simulating portfolio performance. It uses `pandas` for time-series handling and moving-average calculations, then compares the strategy’s return to a buy-and-hold value.
 
 **What it does**
-- Pulled `AAPL` historical daily close prices from `yfinance`
-- Generated trading signals based on 20-day short and 50-day long-term moving average crossovers
-- Simulated a portfolio that fully allocates to stock or cash
-- Tracked portfolio positions through time
-- Compared strategy performance against buy-and-hold over the past year
+- Pulls `AAPL` historical daily close prices from `yfinance`
+- Generates trading signals based on 20-day short and 50-day long-term moving average crossovers
+- Simulates a portfolio that fully allocates to stock or cash
+- Tracks portfolio positions through time
+- Compares strategy performance against buy-and-hold over the past year
 
 Inputs:
 ```
